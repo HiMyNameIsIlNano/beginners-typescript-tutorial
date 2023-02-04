@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { expect, it } from 'vitest';
 
 const tryCatchDemo = (state: "fail" | "succeed") => {
   try {
@@ -6,10 +6,14 @@ const tryCatchDemo = (state: "fail" | "succeed") => {
       throw new Error("Failure!");
     }
   } catch (e) {
-    return e.message;
+    return (e as Error).message;
   }
 };
 
 it("Should return the message when it fails", () => {
   expect(tryCatchDemo("fail")).toEqual("Failure!");
+});
+
+it("Should not return the message when it fails", () => {
+  expect(tryCatchDemo("succeed")).toBeUndefined();
 });
